@@ -9,7 +9,7 @@ class NetError extends Error {
   NetError(this.code, this.msg) : super();
   String msg;
   int code;
-  String toString() => '$msg,$code';
+  String toString() => '请求失败code：$code\n$msg,';
 }
 
 Future<T> NetRequest<T>(dynamic api, {Map<String, dynamic> params}) async {
@@ -91,6 +91,6 @@ void changeBaseUrl(String baseUrl) {
 }
 
 void initDio() {
-  addInterceptors();
-  setHeaders({'header': '11'});
+  // addInterceptors();
+  // setHeaders({'header': '11'});
 }

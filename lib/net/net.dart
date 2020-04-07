@@ -6,15 +6,10 @@ Dio hc_dio = Dio(BaseOptions(
   receiveTimeout: 3000,
 ));
 
-// int initDio() {
-//   addInterceptors();
-//   setHeaders({});
-// print(111111111111);
-//   return 0;
-// }
-
-//为了调用方法
-// int ___initDio = initDio();
+void initDio() {
+  addInterceptors();
+  setHeaders({'header': '22'});
+}
 
 void setHeaders(Map<String, dynamic> headers) {
   hc_dio.options.headers = headers;

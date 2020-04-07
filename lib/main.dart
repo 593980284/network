@@ -66,21 +66,23 @@ class _MyHomePageState extends State<MyHomePage> {
       print(data.city);
       print(data.ganmao);
       print(data.forecast[0].date);
+    }).catchError((e) {
+      print(e.code);
     });
-//  static List weather = ['weather_mini', 'GET']; 
-    NetRequest(API.weather, params: {'city': '沈阳'}).then((data) {
-      if (data is Map) {
-        print("Map");
-        print(data["city"]);
-      }
-    });
+// //  static List weather = ['weather_mini', 'GET'];
+//     NetRequest(API.weather, params: {'city': '沈阳'}).then((data) {
+//       if (data is Map) {
+//         print("Map");
+//         print(data["city"]);
+//       }
+//     });
 
-//自定义的url static List dy_weather = ['http://wthrcdn.etouch.cn/weather_mini', 'GET'];
-    NetRequest<My>(API.dy_weather, params: {'city': '沈阳'}).then((data) {
-      print(data.city);
-      print(data.ganmao);
-      print(data.forecast[0].date);
-    });
+// //自定义的url static List dy_weather = ['http://wthrcdn.etouch.cn/weather_mini', 'GET'];
+//     NetRequest<My>(API.dy_weather, params: {'city': '沈阳'}).then((data) {
+//       print(data.city);
+//       print(data.ganmao);
+//       print(data.forecast[0].date);
+//     });
   }
 
   @override
