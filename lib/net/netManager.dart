@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import '../modelMapping.dart';
 import './net.dart';
 import 'dart:convert';
+export '../models/index.dart' ; 
 
 const List<int> NetSucceedCodes = [200, 1000];
 

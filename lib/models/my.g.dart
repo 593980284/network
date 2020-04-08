@@ -17,6 +17,10 @@ My _$MyFromJson(Map<String, dynamic> json) {
     ..forecast2 = (json['forecast2'] as List)
         ?.map((e) =>
             e == null ? null : Forecast.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..forecast3 = (json['forecast3'] as List)
+        ?.map((e) =>
+            e == null ? null : Forecast.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -24,5 +28,6 @@ Map<String, dynamic> _$MyToJson(My instance) => <String, dynamic>{
       'city': instance.city,
       'ganmao': instance.ganmao,
       'forecast': instance.forecast,
-      'forecast2': instance.forecast2
+      'forecast2': instance.forecast2,
+      'forecast3': instance.forecast3,
     };

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import './net/netManager.dart';
 import 'API.dart';
-import 'models/index.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'userStorage.dart';
 
 void main() {
   initDio();
   runApp(MyApp());
+  autorun((_) {
+    print(userStorage.name);
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +36,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -45,30 +50,26 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+    userStorage.changeName();
+    // setState(() {
+    //   // This call to setState tells the Flutter framework that something has
+    //   // changed in this State, which causes it to rerun the build method below
+    //   // so that the display can reflect the updated values. If we changed
+    //   // _counter without calling setState(), then the build method would not be
+    //   // called again, and so nothing would appear to happen.
+    //   _counter++;
+    // });
 //  static List weather = ['weather_mini', 'GET']; 转成对象
-    NetRequest<My>(API.weather, params: {'city': '沈阳'}).then((data) {
-      print(data.city);
-      print(data.ganmao);
-      print(data.forecast[0].date);
-    }).catchError((e) {
-      print(e.code);
-    });
+    // NetRequest<My>(API.weather, params: {'city': '沈阳'}).then((data) {
+    //   print(data.city);
+    //   print(data.ganmao);
+    //   print(data.forecast[0].date);
+    // }).catchError((e) {
+    //   print(e.code);
+    // });
 // //  static List weather = ['weather_mini', 'GET'];
 //     NetRequest(API.weather, params: {'city': '沈阳'}).then((data) {
 //       if (data is Map) {
@@ -77,12 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
 //       }
 //     });
 
-// //自定义的url static List dy_weather = ['http://wthrcdn.etouch.cn/weather_mini', 'GET'];
-//     NetRequest<My>(API.dy_weather, params: {'city': '沈阳'}).then((data) {
-//       print(data.city);
-//       print(data.ganmao);
-//       print(data.forecast[0].date);
-//     });
+//自定义的url static List dy_weather = ['http://wthrcdn.etouch.cn/weather_mini', 'GET'];
+    // NetRequest<My>(API.dy_weather, params: {'city': '沈阳'}).then((data) {
+    //   print(data.city);
+    //   print(data.ganmao);
+    //   print(data.forecast[0].date);
+    // });
   }
 
   @override
@@ -93,47 +94,52 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+    return Observer(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(title),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                '$userStorage',
+                style: Theme.of(context).textTheme.display1,
+              ),
+              Text(
+                userStorage.name.toString(),
+              )
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
+    });
   }
 }

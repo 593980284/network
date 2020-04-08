@@ -22,5 +22,5 @@ Map<String, dynamic> _$ForecastToJson(Forecast instance) => <String, dynamic>{
       'fengli': instance.fengli,
       'low': instance.low,
       'fengxiang': instance.fengxiang,
-      'type': instance.type
+      'type': instance.type,
     };
