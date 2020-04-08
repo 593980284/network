@@ -1,8 +1,7 @@
 import 'package:mobx/mobx.dart';
-import './net/netManager.dart';
-import 'API.dart';
-import 'utils/sharedPreferences.dart';
-import 'utils/objectUtil.dart';
+import 'package:network/net/netManager.dart';
+import 'package:network/API.dart';
+import 'package:network/utils/index.dart';
 part 'userStorage.g.dart';
 
 const String USERDATAKEY = 'hc_userdata_key';
@@ -17,6 +16,9 @@ abstract class UserStorageBase with Store {
 
   @observable
   String name = '';
+
+  @computed
+  bool get isLogin => true;
 
   @action
   changeName() {
