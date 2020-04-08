@@ -26,21 +26,11 @@ mixin _$UserStorage on UserStorageBase, Store {
     }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
-  final _$numAtom = Atom(name: 'UserStorageBase.num');
+  final _$getFromLocationAsyncAction = AsyncAction('getFromLocation');
 
   @override
-  int get num {
-    _$numAtom.context.enforceReadPolicy(_$numAtom);
-    _$numAtom.reportObserved();
-    return super.num;
-  }
-
-  @override
-  set num(int value) {
-    _$numAtom.context.conditionallyRunInAction(() {
-      super.num = value;
-      _$numAtom.reportChanged();
-    }, _$numAtom, name: '${_$numAtom.name}_set');
+  Future getFromLocation() {
+    return _$getFromLocationAsyncAction.run(() => super.getFromLocation());
   }
 
   final _$UserStorageBaseActionController =
@@ -57,8 +47,38 @@ mixin _$UserStorage on UserStorageBase, Store {
   }
 
   @override
+  dynamic getData() {
+    final _$actionInfo = _$UserStorageBaseActionController.startAction();
+    try {
+      return super.getData();
+    } finally {
+      _$UserStorageBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic save(Map<String, dynamic> data) {
+    final _$actionInfo = _$UserStorageBaseActionController.startAction();
+    try {
+      return super.save(data);
+    } finally {
+      _$UserStorageBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic clean() {
+    final _$actionInfo = _$UserStorageBaseActionController.startAction();
+    try {
+      return super.clean();
+    } finally {
+      _$UserStorageBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
-    final string = 'name: ${name.toString()},num: ${num.toString()}';
+    final string = 'name: ${name.toString()}';
     return '{$string}';
   }
 }

@@ -4,13 +4,21 @@ import 'API.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'userStorage.dart';
+import 'utils/sharedPreferences.dart';
 
-void main() {
+// void main() {
+//   initDio();
+//   runApp(MyApp());
+//   // autorun((_) {
+//   //   print(userStorage.name);
+//   // });
+//   userStorage.getData();
+// }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   initDio();
-  runApp(MyApp());
-  autorun((_) {
-    print(userStorage.name);
-  });
+  await SpUtil.getInstance();
+  runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -125,11 +133,11 @@ class MyHomePage extends StatelessWidget {
                 'You have pushed the button this many times:',
               ),
               Text(
-                '$userStorage',
+                {"name": 'huchao'}.toString(),
                 style: Theme.of(context).textTheme.display1,
               ),
               Text(
-                userStorage.name.toString(),
+                userStorage.name,
               )
             ],
           ),

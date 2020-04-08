@@ -11,6 +11,8 @@ class SpUtil {
     return await getInstance();
   }
 
+  static SpUtil shared;
+
   static SharedPreferences _spf;
 
   SpUtil._();
@@ -26,6 +28,7 @@ class SpUtil {
     if (_spf == null) {
       await _instance._init();
     }
+    shared = _instance;
     return _instance;
   }
 
